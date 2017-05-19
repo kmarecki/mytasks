@@ -2,8 +2,10 @@
 
 # compiled output
 /dist
+/wwwroot
 /tmp
 /out-tsc
+/bin
 /obj
 
 # dependencies
