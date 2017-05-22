@@ -21,6 +21,7 @@ namespace mytasks {
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
+                //app.UseWebpackDevMiddleware();
             }
             app.UseStaticFiles();
             // app.Run(async (context) => {
