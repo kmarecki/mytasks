@@ -7,7 +7,7 @@ import { ProjectService } from './project.service';
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css'],
-  providers: [ ProjectService]
+  providers: [ProjectService]
 })
 export class ProjectsComponent implements OnInit {
 
@@ -22,7 +22,8 @@ export class ProjectsComponent implements OnInit {
 
   getProjects() {
     this.projectService.getProjects()
-      .then(projects => this.projects = projects)
-      .catch(error => this.errorMessage = error)
+      .subscribe(
+      projects => this.projects = projects,
+      error => this.errorMessage = error);
   }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using mytasks.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace mytasks.Controllers {
-
+namespace mytasks.Controllers.Api {
+    [Route("api/[controller]")]
     public class TasksController : Controller {
 
         [HttpGet]
