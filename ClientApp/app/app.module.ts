@@ -1,30 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Jsonp } from '@angular/http';
-import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { NavmenuComponent } from './navmenu/navmenu.component';
+import { AppRoutingModule} from './app-routing.module';
+import { ComponentsModule } from './components/components.module';
+import { ServicesModule } from './services/services.module';
+
+import { AppComponent } from './components/app/app.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TasksComponent,
-    ProjectsComponent,
-    NavmenuComponent
-  ],
-  imports: [
+    imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'app', pathMatch: 'full' },
-      { path: 'projects', component: ProjectsComponent },
-      { path: 'tasks', component: TasksComponent },
-    ])
+    RouterModule,
+    AppRoutingModule,
+    ComponentsModule,
+    ServicesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
