@@ -1,14 +1,14 @@
 <div class='main-nav'>
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
-          <a class='navbar-brand' [routerLink]="['/']">ntodo</a>
+            <a class='navbar-brand' [routerLink]="['/']">ntodo</a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/tasks']">
-                         <span class='glyphicon'>Tasks</span>
+                         <span class='glyphicoSn'>Tasks</span>
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
@@ -16,7 +16,11 @@
                         <span class='glyphicon'>Projects</span>
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/settings']">
+                        <span class='glyphicon'>Settings</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
-</div>

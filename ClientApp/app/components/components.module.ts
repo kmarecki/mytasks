@@ -7,12 +7,13 @@ import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app/app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule
   ],
-  declarations: [SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent]
+  declarations: [SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent]
 })
 export class ComponentsModule { }
