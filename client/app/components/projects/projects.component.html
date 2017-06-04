@@ -9,6 +9,7 @@
   <div class="col-xs-4">
     <button *ngIf="!selectedProject" type="button" class="btn" (click)="new(post)">New</button>
     <button *ngIf="selectedProject" type="button" class="btn" (click)="save(post)">Save</button>
+    <button *ngIf="selectedProject" type="button" class="btn" (click)="cancel(post)">Cancel</button>
   </div>
 </div>
 <div class="row">

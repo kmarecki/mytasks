@@ -43,4 +43,8 @@ export class ProjectsComponent implements OnInit {
   save(project: Project) {
     this.selectedProject = undefined;
   }
+
+  cancel() {
+    this.selectedProject = undefined;
+  }
 }
