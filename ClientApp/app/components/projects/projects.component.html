@@ -1,4 +1,26 @@
 <h3>Projects</h3>
-<ul>
-  <li *ngFor="let project of projects">{{project.projectName}}</li> 
-</ul>
+<div class="row">
+  <form class="col-xs-8">
+    <div *ngIf="selectedProject" class="form-group">
+      <label for="projectName">Project name:</label>
+      <input [focus]="onFocus" type="text" class="form-control" name="projectName" [(ngModel)]="selectedProject.projectName" />
+    </div>
+  </form>
+  <div class="col-xs-4">
+    <button *ngIf="!selectedProject" type="button" class="btn" (click)="new(post)">New</button>
+    <button *ngIf="selectedProject" type="button" class="btn" (click)="save(post)">Save</button>
+  </div>
+</div>
+<div class="row">
+  <ul class="data-list">
+    <li *ngFor="let project of projects">
+      <div class="col-xs-8">
+        <span>{{project.projectName}}</span>
+      </div>
+      <div class="buttons col-xs-4">
+        <button type="button" class="btn-xs" (click)="edit(project)">Edit</button>
+        <button class="btn btn-xs btn-default" (click)="remove(project)">Del</button>
+      </div>
+    </li>
+  </ul>
+</div>
