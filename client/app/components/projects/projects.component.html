@@ -7,9 +7,9 @@
     </div>
   </form>
   <div class="col-xs-4">
-    <button *ngIf="!selectedProject" type="button" class="btn" (click)="new(post)">New</button>
-    <button *ngIf="selectedProject" type="button" class="btn" (click)="save(post)">Save</button>
-    <button *ngIf="selectedProject" type="button" class="btn" (click)="cancel(post)">Cancel</button>
+    <button *ngIf="!selectedProject" type="button" class="btn" (click)="create()">New</button>
+    <button *ngIf="selectedProject" type="button" class="btn" (click)="save()">Save</button>
+    <button *ngIf="selectedProject" type="button" class="btn" (click)="cancel()">Cancel</button>
   </div>
 </div>
 <div class="row">

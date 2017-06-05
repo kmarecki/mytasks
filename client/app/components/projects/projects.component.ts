@@ -30,7 +30,7 @@ export class ProjectsComponent implements OnInit {
       error => this.errorMessage = error);
   }
 
-  new() {
+  create() {
     this.selectedProject = new Project();
     this.onFocus.emit(true);
   }
@@ -40,8 +40,16 @@ export class ProjectsComponent implements OnInit {
     this.onFocus.emit(true);
   }
 
-  save(project: Project) {
-    this.selectedProject = undefined;
+  save() {
+    const promise = this.selectedProject.projectId ?
+      this.projectService.update(this.selectedProject) :
+      this.projectService.create(this.selectedProject.projectName);
+
+    promise
+      .then(() => {
+        this.getProjects();
+        this.selectedProject = undefined;
+      });
   }
 
   cancel() {
