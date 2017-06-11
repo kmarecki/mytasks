@@ -24,6 +24,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
     "roboto-fontface": "^0.7.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
@@ -32,6 +33,7 @@
     "@angular/cli": "~1.0.4",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.47",
+    "@types/lodash": "^4.14.65",
     "@types/node": "~6.0.60",
     "aspnet-webpack": "^1.0.29",
     "codelyzer": "~2.0.0",

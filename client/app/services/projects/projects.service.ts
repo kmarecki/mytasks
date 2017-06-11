@@ -12,7 +12,7 @@ import { Project } from './project';
 export class ProjectsService {
 
     private readonly baseUrl = 'api/projects';
-    private readonly headers = new Headers({'Content-Type': 'appliccation/json'}) 
+    private readonly headers = new Headers({ 'Content-Type': 'application/json' })
 
     constructor(private http: Http) { }
 
@@ -33,21 +33,29 @@ export class ProjectsService {
 
     create(projectName: string): Promise<Project> {
         const data = { projectName: projectName };
-        return this.http.post(this.baseUrl, JSON.stringify(data), { headers: this.headers } )
+        return this.http.post(this.baseUrl, JSON.stringify(data), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as Project)
             .catch(this.handleError);
     }
 
     update(project: Project): Promise<Project> {
-         const url = `${this.baseUrl}/${project.projectId}`;
-         return this.http
-            .put(url, JSON.stringify(project), {headers: this.headers})
+        const url = `${this.baseUrl}/${project.projectId}`;
+        return this.http
+            .put(url, JSON.stringify(project), { headers: this.headers })
             .toPromise()
-            .then( res => res.json().data as Project)
+            .then(res => res.json().data as Project)
             .catch(this.handleError);
-    } 
+    }
 
+    delete(id: number): Promise<void> {
+        const url = `${this.baseUrl}/${id}`;
+        return this.http
+            .delete(url, { headers: this.headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};

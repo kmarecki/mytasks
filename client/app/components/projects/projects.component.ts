@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { Project } from '../../services/projects/project';
@@ -19,28 +20,37 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private projectService: ProjectsService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getProjects();
   }
 
-  getProjects() {
+  getProjects(): void {
     this.projectService.getProjects()
       .subscribe(
       projects => this.projects = projects,
       error => this.errorMessage = error);
   }
 
-  create() {
+  create(): void {
     this.selectedProject = new Project();
     this.onFocus.emit(true);
   }
 
-  edit(project: Project) {
-    this.selectedProject = project;
+  edit(project: Project): void {
+    this.selectedProject = _.clone(project);
     this.onFocus.emit(true);
   }
 
-  save() {
+  delete(project: Project): void {
+    this.projectService.delete(project.projectId)
+      .then(() => {
+        this.getProjects();
+        if(this.selectedProject == project) {
+          this.selectedProject = undefined;
+        }});
+  }
+
+  save(): void {
     const promise = this.selectedProject.projectId ?
       this.projectService.update(this.selectedProject) :
       this.projectService.create(this.selectedProject.projectName);
@@ -52,7 +62,7 @@ export class ProjectsComponent implements OnInit {
       });
   }
 
-  cancel() {
+  cancel(): void {
     this.selectedProject = undefined;
   }
 }
