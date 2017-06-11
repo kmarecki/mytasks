@@ -6,3 +6,15 @@ body * {
 ul {
     list-style-type: none;
 }
+
+.vertical-align {
+  display: flex;
+  flex-direction: row;
+  align-items: center;  
+  justify-content: center;
+}
+
+.vertical-align > [class^="col-"],
+.vertical-align > [class*=" col-"] {
+  align-self: flex-start;
+}

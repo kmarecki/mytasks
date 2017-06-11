@@ -45,14 +45,14 @@ export class ProjectsComponent implements OnInit {
     this.projectService.delete(project.projectId)
       .then(() => {
         this.getProjects();
-        if(this.selectedProject == project) {
+        if(this.selectedProject.projectId == project.projectId) {
           this.selectedProject = undefined;
         }});
   }
 
   save(): void {
     const promise = this.selectedProject.projectId ?
-      this.projectService.update(this.selectedProject) :
+      this.projectService.update(this.selectedProject.projectId, this.selectedProject) :
       this.projectService.create(this.selectedProject.projectName);
 
     promise
