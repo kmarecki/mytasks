@@ -39,7 +39,7 @@ namespace mytasks.Migrations
 
                     b.HasKey("TaskId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Tasks");
                 });
         }
     }

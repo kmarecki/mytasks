@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 
 using mytasks.Models;
+using mytasks.Repositories;
 
 namespace mytasks {
     public class Startup {
@@ -32,6 +33,8 @@ namespace mytasks {
             services.AddMvc();
             services.AddDbContext<MyTasksContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("sqlite")));
+
+            services.AddScoped<IProjectsRepository, ProjectsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

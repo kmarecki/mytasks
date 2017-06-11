@@ -23,7 +23,7 @@ namespace mytasks.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Tasks",
                 columns: table => new
                 {
                     TaskId = table.Column<int>(nullable: false)
@@ -32,7 +32,7 @@ namespace mytasks.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.TaskId);
+                    table.PrimaryKey("PK_Tasks", x => x.TaskId);
                 });
         }
 
@@ -42,7 +42,7 @@ namespace mytasks.Migrations
                 name: "Projects");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Tasks");
         }
     }
 }

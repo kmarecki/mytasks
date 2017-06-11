@@ -8,9 +8,10 @@ using mytasks.Models;
 namespace mytasks.Migrations
 {
     [DbContext(typeof(MyTasksContext))]
-    partial class MyTasksContextModelSnapshot : ModelSnapshot
+    [Migration("20170611190534_0001Migration")]
+    partial class _0001Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");

@@ -9,10 +9,9 @@ namespace mytasks.Models {
             : base(options) { }
 
         public DbSet<Project> Projects { get; set;}
-        public DbSet<Task> Posts { get; set; }
+        public DbSet<Task> Tasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            // optionsBuilder.UseSqlite("Filename=./mytasks.db");
         }
     }
 }
