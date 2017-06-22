@@ -35,6 +35,7 @@ namespace mytasks {
                 options.UseSqlite(Configuration.GetConnectionString("sqlite")));
 
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
+            services.AddScoped<ITasksRepository, TasksRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

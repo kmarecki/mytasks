@@ -8,9 +8,8 @@ namespace mytasks.Repositories {
     public interface IProjectsRepository : IRepository<MyTasksContext, Project> {
     }
     public class ProjectsRepository : Repository<MyTasksContext, Project>, IProjectsRepository {
-
-        ProjectsRepository(MyTasksContext context) :
-            base(context) {}
+        public ProjectsRepository(MyTasksContext context) : base(context) {
+        }
 
         public override void Add(Project entity) {
             _context.Add(entity);

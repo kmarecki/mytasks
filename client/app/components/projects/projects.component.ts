@@ -10,6 +10,7 @@ import { ProjectsService } from '../../services/projects/projects.service';
   styleUrls: ['./projects.component.css'],
   providers: [ProjectsService]
 })
+
 export class ProjectsComponent implements OnInit {
 
   projects: Project[];
