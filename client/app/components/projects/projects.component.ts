@@ -1,8 +1,11 @@
 import * as _ from 'lodash';
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, AfterViewInit, EventEmitter, ViewChild, Type } from '@angular/core';
 
 import { Project } from '../../services/projects/project';
 import { ProjectsService } from '../../services/projects/projects.service';
+
+import { EditFormDirective } from './edit-form.directive';
+import { EditComponent, ProjectsEditComponent } from "./projects-edit.component";
 
 @Component({
   selector: 'app-projects',
@@ -11,16 +14,25 @@ import { ProjectsService } from '../../services/projects/projects.service';
   providers: [ProjectsService]
 })
 
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, AfterViewInit {
 
   projects: Project[];
-  selectedProject: Project;
   errorMessage: string;
+  editor: ProjectsEditComponent = { project: undefined };
 
   onFocus = new EventEmitter<boolean>();
 
-  constructor(private projectService: ProjectsService) { }
+  @ViewChild(EditFormDirective) editForm: EditFormDirective;
 
+  constructor(
+    private projectService: ProjectsService,
+    private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  ngAfterViewInit(): void {
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ProjectsEditComponent);
+    let viewContainerRef = this.editForm.viewContainerRef;
+    this.editor = <ProjectsEditComponent> viewContainerRef.createComponent(componentFactory).instance;
+  }
   ngOnInit(): void {
     this.getProjects();
   }
@@ -33,12 +45,12 @@ export class ProjectsComponent implements OnInit {
   }
 
   create(): void {
-    this.selectedProject = new Project();
+    this.editor.project = new Project();
     this.onFocus.emit(true);
   }
 
   edit(project: Project): void {
-    this.selectedProject = _.clone(project);
+    this.editor.project = _.clone(project);
     this.onFocus.emit(true);
   }
 
@@ -46,24 +58,25 @@ export class ProjectsComponent implements OnInit {
     this.projectService.delete(project.projectId)
       .then(() => {
         this.getProjects();
-        if(this.selectedProject.projectId == project.projectId) {
-          this.selectedProject = undefined;
-        }});
+        if (this.editor.project.projectId == project.projectId) {
+          this.editor.project = undefined;
+        }
+      });
   }
 
   save(): void {
-    const promise = this.selectedProject.projectId ?
-      this.projectService.update(this.selectedProject.projectId, this.selectedProject) :
-      this.projectService.create(this.selectedProject.projectName);
+    const promise = this.editor.project.projectId ?
+      this.projectService.update( this.editor.project.projectId,  this.editor.project) :
+      this.projectService.create( this.editor.project.projectName);
 
     promise
       .then(() => {
         this.getProjects();
-        this.selectedProject = undefined;
+        this.editor.project = undefined;
       });
   }
 
   cancel(): void {
-    this.selectedProject = undefined;
+    this.editor.project = undefined;
   }
 }

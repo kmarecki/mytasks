@@ -3,17 +3,14 @@
     Projects
   </div>
   <div class="col-xs-4">
-    <button *ngIf="!selectedProject" type="button" class="btn" (click)="create()">New</button>
-    <button *ngIf="selectedProject" type="button" class="btn" (click)="save()">Save</button>
-    <button *ngIf="selectedProject" type="button" class="btn" (click)="cancel()">Cancel</button>
+    <button *ngIf="!editor.project" type="button" class="btn" (click)="create()">New</button>
+    <button *ngIf="editor.project" type="button" class="btn" (click)="save()">Save</button>
+    <button *ngIf="editor.project" type="button" class="btn" (click)="cancel()">Cancel</button>
   </div>
 </h3>
 <div class="row">
   <form class="col-xs-8">
-    <div *ngIf="selectedProject" class="form-group">
-      <label for="projectName">Project name:</label>
-      <input [focus]="onFocus" type="text" class="form-control" name="projectName" [(ngModel)]="selectedProject.projectName" />
-    </div>
+    <ng-template edit-form></ng-template>
   </form>
 </div>
 <div class="row">

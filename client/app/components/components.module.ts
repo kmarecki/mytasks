@@ -7,9 +7,11 @@ import { DirectivesModule } from '../directives/directives.module';
 import { SettingsComponent } from './settings/settings.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsEditComponent } from './projects/projects-edit.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app/app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditFormDirective } from './projects/edit-form.directive';
 
 import {RedDirective} from '../directives/red/red.directive';
 
@@ -20,6 +22,7 @@ import {RedDirective} from '../directives/red/red.directive';
     RouterModule,
     DirectivesModule
   ],
-  declarations: [SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent]
+  declarations: [EditFormDirective, ProjectsEditComponent, SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent],
+  entryComponents: [ProjectsEditComponent]
 })
 export class ComponentsModule { }
