@@ -6,6 +6,7 @@
     <button *ngIf="!editor.project" type="button" class="btn" (click)="create()">New</button>
     <button *ngIf="editor.project" type="button" class="btn" (click)="save()">Save</button>
     <button *ngIf="editor.project" type="button" class="btn" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn" (click)="refresh()">Refresh</button>
   </div>
 </h3>
 <div class="row">
@@ -17,7 +18,7 @@
   <ul class="data-list">
     <li *ngFor="let project of projects">
       <div class="col-xs-8">
-        <span>{{project.projectName}}</span>
+        <ng-template list-item></ng-template>
       </div>
       <div class="buttons col-xs-4">
         <button type="button" class="btn-xs" (click)="edit(project)">Edit</button>

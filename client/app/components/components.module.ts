@@ -11,9 +11,12 @@ import { ProjectsEditComponent } from './projects/projects-edit.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app/app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EditFormDirective } from './projects/edit-form.directive';
 
-import {RedDirective} from '../directives/red/red.directive';
+import { EditFormDirective } from './projects/edit-form.directive';
+import { ListItemDirective } from './projects/list-item.directive';
+
+import { RedDirective } from '../directives/red/red.directive';
+import { ProjectItemComponent } from './projects/project-item.component';
 
 @NgModule({
   imports: [
@@ -22,7 +25,7 @@ import {RedDirective} from '../directives/red/red.directive';
     RouterModule,
     DirectivesModule
   ],
-  declarations: [EditFormDirective, ProjectsEditComponent, SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent],
-  entryComponents: [ProjectsEditComponent]
+  declarations: [EditFormDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent],
+  entryComponents: [ProjectsEditComponent, ProjectItemComponent]
 })
 export class ComponentsModule { }

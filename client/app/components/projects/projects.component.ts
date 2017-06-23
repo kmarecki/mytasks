@@ -1,11 +1,17 @@
 import * as _ from 'lodash';
-import { Component, ComponentFactoryResolver, OnInit, AfterViewInit, EventEmitter, ViewChild, Type } from '@angular/core';
+import {
+  Component, ComponentFactoryResolver, OnInit, AfterViewInit, EventEmitter,
+  QueryList, ViewChild, ViewChildren, Type, ViewContainerRef, AfterContentInit, AfterViewChecked
+} from '@angular/core';
 
 import { Project } from '../../services/projects/project';
 import { ProjectsService } from '../../services/projects/projects.service';
 
 import { EditFormDirective } from './edit-form.directive';
-import { EditComponent, ProjectsEditComponent } from "./projects-edit.component";
+import { ListItemDirective } from './list-item.directive';
+
+import { ProjectsEditComponent } from './projects-edit.component';
+import { ProjectItemComponent } from './project-item.component';
 
 @Component({
   selector: 'app-projects',
@@ -14,7 +20,14 @@ import { EditComponent, ProjectsEditComponent } from "./projects-edit.component"
   providers: [ProjectsService]
 })
 
-export class ProjectsComponent implements OnInit, AfterViewInit {
+export class ProjectsComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked {
+  ngAfterViewChecked(): void {
+
+  }
+
+  ngAfterContentInit(): void {
+
+  }
 
   projects: Project[];
   errorMessage: string;
@@ -23,16 +36,22 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   onFocus = new EventEmitter<boolean>();
 
   @ViewChild(EditFormDirective) editForm: EditFormDirective;
+  @ViewChildren(ListItemDirective) listItem: QueryList<ListItemDirective>;
+
 
   constructor(
     private projectService: ProjectsService,
     private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngAfterViewInit(): void {
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ProjectsEditComponent);
-    let viewContainerRef = this.editForm.viewContainerRef;
-    this.editor = <ProjectsEditComponent> viewContainerRef.createComponent(componentFactory).instance;
+    setTimeout(() => {
+      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ProjectsEditComponent);
+      let viewContainerRef = this.editForm.viewContainerRef;
+      this.editor = <ProjectsEditComponent>viewContainerRef.createComponent(componentFactory).instance;
+      this.refresh();
+    });
   }
+
   ngOnInit(): void {
     this.getProjects();
   }
@@ -66,8 +85,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   save(): void {
     const promise = this.editor.project.projectId ?
-      this.projectService.update( this.editor.project.projectId,  this.editor.project) :
-      this.projectService.create( this.editor.project.projectName);
+      this.projectService.update(this.editor.project.projectId, this.editor.project) :
+      this.projectService.create(this.editor.project.projectName);
 
     promise
       .then(() => {
@@ -78,5 +97,19 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
 
   cancel(): void {
     this.editor.project = undefined;
+  }
+
+  refresh(): void {
+
+    let itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(ProjectItemComponent)
+    let itemRefs = this.listItem.toArray();
+    for (let i = 0; i < itemRefs.length; i++) {
+      let itemRef = itemRefs[i].viewContainerRef;
+      itemRef.clear();
+      let itemComponent = itemRef.createComponent(itemComponentFactory);
+      itemComponent.changeDetectorRef.detectChanges();
+      itemComponent.instance.project = this.projects[i];
+    }
+
   }
 }
