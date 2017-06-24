@@ -22,7 +22,7 @@ import { ProjectItemComponent } from './project-item.component';
 
 export class ProjectsComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked {
   ngAfterViewChecked(): void {
-
+    
   }
 
   ngAfterContentInit(): void {
@@ -44,12 +44,15 @@ export class ProjectsComponent implements OnInit, AfterViewInit, AfterContentIni
     private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ProjectsEditComponent);
-      let viewContainerRef = this.editForm.viewContainerRef;
-      this.editor = <ProjectsEditComponent>viewContainerRef.createComponent(componentFactory).instance;
-      this.refresh();
-    });
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(ProjectsEditComponent);
+    let viewContainerRef = this.editForm.viewContainerRef;
+    this.editor = <ProjectsEditComponent>viewContainerRef.createComponent(componentFactory).instance;
+
+    this.listItem.changes
+      .subscribe(() =>
+        setTimeout(() => {
+          this.refresh();
+        }));
   }
 
   ngOnInit(): void {
@@ -108,7 +111,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, AfterContentIni
       itemRef.clear();
       let itemComponent = itemRef.createComponent(itemComponentFactory);
       itemComponent.changeDetectorRef.detectChanges();
-      itemComponent.instance.project = this.projects[i];
+      itemComponent.instance.project = <Project>itemRefs[i].item;
     }
 
   }

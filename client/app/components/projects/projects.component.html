@@ -18,7 +18,7 @@
   <ul class="data-list">
     <li *ngFor="let project of projects">
       <div class="col-xs-8">
-        <ng-template list-item></ng-template>
+        <ng-template list-item [item]=project></ng-template>
       </div>
       <div class="buttons col-xs-4">
         <button type="button" class="btn-xs" (click)="edit(project)">Edit</button>
