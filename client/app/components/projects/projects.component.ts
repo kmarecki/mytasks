@@ -12,7 +12,7 @@ import { ListItemDirective } from './list-item.directive';
 
 import { ProjectsEditComponent } from './projects-edit.component';
 import { ProjectItemComponent } from './project-item.component';
-import { EntityFormComponentImpl, EntityFormComponent } from './entity-form.component';
+import { EntityFormComponent } from './entity-form.component';
 
 @Component({
   selector: 'app-projects',
@@ -20,25 +20,29 @@ import { EntityFormComponentImpl, EntityFormComponent } from './entity-form.comp
   styleUrls: ['./projects.component.css'],
   providers: [ProjectsService]
 })
-export class ProjectsComponent extends EntityFormComponent<Project> implements EntityFormComponentImpl<Project> {
+export class ProjectsComponent extends EntityFormComponent<Project>  {
 
-  getÈditFormComponent(): Type<{}> {
+  protected getNameProperty(): string {
+    return 'projectName';
+  }
+
+  protected getÈditFormComponent(): Type<{}> {
     return ProjectsEditComponent;
   }
 
-  getListItemComponent(): Type<{}> {
+  protected getListItemComponent(): Type<{}> {
     return ProjectItemComponent;
   }
 
-  newEntity(): Project {
+  protected newEntity(): Project {
     return new Project();
   }
 
-  createEntityFromEditor() {
+  protected createEntityFromEditor() {
     return { projectName: this.editor.entity.projectName }
   }
 
-  getId(entity: Project): number {
+  protected getId(entity: Project): number {
     return entity.projectId;
   }
 

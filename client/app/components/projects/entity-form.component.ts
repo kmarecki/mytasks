@@ -16,23 +16,7 @@ import { EditFormComponent } from './edit-form.component';
 import { ListItemComponent } from './list-item.component';
 import { ProjectItemComponent } from './project-item.component';
 
-export interface EntityFormComponentImpl<TEntity> {
-
-  getÈditFormComponent(): Type<{}>;
-
-  getListItemComponent(): Type<{}>;
-
-  newEntity(): TEntity;
-
-  createEntityFromEditor(): any;
-
-  getId(entity: TEntity): number;
-}
-
-// @Component({
-//   template: ''
-// })
-export class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
+export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
 
   items: TEntity[];
   errorMessage: string;
@@ -49,13 +33,21 @@ export class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
     private service: RestService<TEntity>,
     private componentFactoryResolver: ComponentFactoryResolver) { }
 
-  private getImpl(): EntityFormComponentImpl<TEntity> {
-    return <EntityFormComponentImpl<TEntity>>(<any>this);
-  }
+  protected abstract getÈditFormComponent(): Type<{}>;
+
+  protected abstract getListItemComponent(): Type<{}>;
+
+  protected abstract newEntity(): TEntity;
+
+  protected abstract createEntityFromEditor(): any;
+
+  protected abstract getId(entity: TEntity): number;
+
+  protected abstract getNameProperty(): string;
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getImpl().getÈditFormComponent());
+      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getÈditFormComponent());
       let viewContainerRef = this.editForm.viewContainerRef;
       this.editor = <EditFormComponent<TEntity>>viewContainerRef.createComponent(componentFactory).instance;
     });
@@ -76,13 +68,13 @@ export class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
       .subscribe(
       projects => {
         this.items = projects;
-        this.sort()
+        this.sortItems()
       },
       error => this.errorMessage = error);
   }
 
   create(): void {
-    this.editor.entity = this.getImpl().newEntity();
+    this.editor.entity = this.newEntity();
     this.onFocus.emit(true);
   }
 
@@ -92,19 +84,19 @@ export class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
   }
 
   delete(entity: TEntity): void {
-    this.service.delete(this.getImpl().getId(entity))
+    this.service.delete(this.getId(entity))
       .then(() => {
         this.getItems();
-        if (this.getImpl().getId(this.editor.entity) == this.getImpl().getId(entity)) {
+        if (this.getId(this.editor.entity) == this.getId(entity)) {
           this.editor.entity = undefined;
         }
       });
   }
 
   save(): void {
-    const promise = this.getImpl().getId(this.editor.entity) ?
-      this.service.update(this.getImpl().getId(this.editor.entity), this.editor.entity) :
-      this.service.create(this.getImpl().createEntityFromEditor());
+    const promise = this.getId(this.editor.entity) ?
+      this.service.update(this.getId(this.editor.entity), this.editor.entity) :
+      this.service.create(this.createEntityFromEditor());
 
     promise
       .then(() => {
@@ -119,7 +111,7 @@ export class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
 
   refresh(): void {
 
-    let itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getImpl().getListItemComponent())
+    let itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getListItemComponent())
     let itemRefs = this.listItem.toArray();
     for (let i = 0; i < itemRefs.length; i++) {
       let itemRef = itemRefs[i].viewContainerRef;
@@ -131,10 +123,14 @@ export class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
   }
 
   private ascending = true;
-  sort(): void {
-    this.items = _.orderBy(this.items, ['projectName'], [this.ascending ? 'asc' : 'desc']);
+  private sortItems(): void {
+    this.items = _.orderBy(this.items, [this.getNameProperty()], [this.ascending ? 'asc' : 'desc']);
     this.buttonSortText = this.ascending ? 'Sort asc' : 'Sort desc';
+  }
+
+  sort(): void {
     this.ascending = !this.ascending;
+    this.sortItems();
   }
 
 }
