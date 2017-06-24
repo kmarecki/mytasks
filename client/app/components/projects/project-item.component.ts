@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Project } from '../../services/projects/project';
-import { ListItemComponent } from './list-item.component';
+import { ListItemComponent } from '../entity-form/list-item.component';
 
 @Component({
   selector: 'app-project-item',

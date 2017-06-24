@@ -6,15 +6,12 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 
-import { Project } from '../../services/projects/project';
-import { ProjectsService } from '../../services/projects/projects.service';
 import { RestService } from '../../services/rest-service';
 import { EditFormDirective } from './edit-form.directive';
 import { ListItemDirective } from './list-item.directive';
 
 import { EditFormComponent } from './edit-form.component';
 import { ListItemComponent } from './list-item.component';
-import { ProjectItemComponent } from './project-item.component';
 
 export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
 

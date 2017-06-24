@@ -1,6 +1,6 @@
 import { Component, Input, Type } from '@angular/core';
 
-import { EditFormComponent } from './edit-form.component';
+import { EditFormComponent } from '../entity-form/edit-form.component';
 import { Project } from '../../services/projects/project';
 
 @Component({

@@ -12,9 +12,9 @@ import { NavmenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app/app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { EditFormDirective } from './projects/edit-form.directive';
-import { ListItemDirective } from './projects/list-item.directive';
-import { EntityFormComponent } from './projects/entity-form.component';
+import { EditFormDirective } from './entity-form/edit-form.directive';
+import { ListItemDirective } from './entity-form/list-item.directive';
+import { EntityFormComponent } from './entity-form/entity-form.component';
 
 import { RedDirective } from '../directives/red/red.directive';
 import { ProjectItemComponent } from './projects/project-item.component';
