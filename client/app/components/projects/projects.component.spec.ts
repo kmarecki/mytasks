@@ -22,6 +22,6 @@ describe('ProjectsComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-    expect(component.projects.length).toEqual(2);
+    expect(component.items.length).toEqual(2);
   });
 });

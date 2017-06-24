@@ -29,8 +29,7 @@ export abstract class RestService<TEntity> {
             .catch(this.handleError);
     }
 
-    create(projectName: string): Promise<TEntity> {
-        const data = { projectName: projectName };
+    create(data: any): Promise<TEntity> {
         return this.http.post(this.getBaseUrl(), JSON.stringify(data), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as TEntity)

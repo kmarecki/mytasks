@@ -1,13 +1,11 @@
 import { Component, Input, Type } from '@angular/core';
 
+import { EditFormComponent } from './edit-form.component';
 import { Project } from '../../services/projects/project';
-
-export interface EditComponent {
-}
 
 @Component({
     templateUrl: './projects-edit.component.html'
 })
-export class ProjectsEditComponent implements EditComponent {
-    @Input() project: Project;
+export class ProjectsEditComponent implements EditFormComponent<Project> {
+    @Input() entity: Project
 }

@@ -1,0 +1,30 @@
+<h3 class="row">
+  <div class="col-xs-8">
+    Projects
+  </div>
+  <div class="col-xs-4">
+    <button *ngIf="!editor.entity" type="button" class="btn" (click)="create()">New</button>
+    <button *ngIf="editor.entity" type="button" class="btn" (click)="save()">Save</button>
+    <button *ngIf="editor.entity" type="button" class="btn" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn" (click)="refresh()">Refresh</button>
+  </div>
+</h3>
+<div class="row">
+  <form class="col-xs-8">
+    <ng-template edit-form></ng-template>
+  </form>
+</div>
+<div class="row">
+  <ul class="data-list">
+    <button type="button" class="btn-xs" (click)="sort()">{{buttonSortText}}</button>
+    <li *ngFor="let item of items">
+      <div class="col-xs-8">
+        <ng-template list-item [item]=item></ng-template>
+      </div>
+      <div class="buttons col-xs-4">
+        <button type="button" class="btn-xs" (click)="edit(item)">Edit</button>
+        <button class="btn btn-xs btn-default" (click)="delete(project)">Del</button>
+      </div>
+    </li>
+  </ul>
+</div>

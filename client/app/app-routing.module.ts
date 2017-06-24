@@ -7,7 +7,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'projects', pathMatch: 'full'},
+  { path: '', redirectTo: 'posts', pathMatch: 'full'},
   { path: 'home', component: DashboardComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'tasks', component: TasksComponent },
