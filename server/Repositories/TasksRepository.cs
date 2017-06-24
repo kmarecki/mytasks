@@ -11,8 +11,7 @@ namespace mytasks.Repositories {
     
     public class TasksRepository : Repository<MyTasksContext, Task>, ITasksRepository
      {
-
-        TasksRepository(MyTasksContext context) :
+        public TasksRepository(MyTasksContext context) :
             base(context) { }
 
         public override void Add(Task entity) {

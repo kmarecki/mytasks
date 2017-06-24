@@ -6,7 +6,7 @@ using mytasks.Repositories;
 
 namespace mytasks.Controllers.Api {
     public class TasksController : ApiController<MyTasksContext, Task> {
-        public TasksController(TasksRepository repo) : base(repo) {
+        public TasksController(ITasksRepository repo) : base(repo) {
         }
     }
 }

@@ -5,9 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DirectivesModule } from '../directives/directives.module';
 
 import { SettingsComponent } from './settings/settings.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectsEditComponent } from './projects/projects-edit.component';
+
 import { NavmenuComponent } from './navmenu/navmenu.component';
 import { AppComponent } from './app/app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,7 +15,16 @@ import { ListItemDirective } from './entity-form/list-item.directive';
 import { EntityFormComponent } from './entity-form/entity-form.component';
 
 import { RedDirective } from '../directives/red/red.directive';
+
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsEditComponent } from './projects/projects-edit.component';
 import { ProjectItemComponent } from './projects/project-item.component';
+
+import { TasksComponent } from './tasks/tasks.component';
+import { TaskEditComponent } from './tasks/task-edit.component';
+import { TaskItemComponent } from './tasks/task-item.component';
+
+
 
 @NgModule({
   imports: [
@@ -26,7 +33,9 @@ import { ProjectItemComponent } from './projects/project-item.component';
     RouterModule,
     DirectivesModule
   ],
-  declarations: [EditFormDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, TasksComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent],
-  entryComponents: [ProjectsEditComponent, ProjectItemComponent]
+  declarations: [EditFormDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent,
+    TasksComponent, TaskEditComponent, TaskItemComponent
+  ],
+  entryComponents: [ProjectsEditComponent, ProjectItemComponent, TaskEditComponent, TaskItemComponent ]
 })
 export class ComponentsModule { }

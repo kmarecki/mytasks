@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import {
   Component, ComponentFactoryResolver, Type
 } from '@angular/core';
@@ -17,6 +16,9 @@ import { EntityFormComponent } from '../entity-form/entity-form.component';
   providers: [ProjectsService]
 })
 export class ProjectsComponent extends EntityFormComponent<Project>  {
+  protected getTitle(): string {
+    return 'Projects';
+  }
 
   protected getNameProperty(): string {
     return 'projectName';

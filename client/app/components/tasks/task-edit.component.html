@@ -1,0 +1,4 @@
+<div *ngIf="entity" class="form-group">
+    <label for="taskName">Task name:</label>
+    <input [focus]="onFocus" type="text" class="form-control" name="taskName" [(ngModel)]="entity.taskName" />
+</div>

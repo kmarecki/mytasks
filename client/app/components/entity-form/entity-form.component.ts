@@ -19,6 +19,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   errorMessage: string;
   editor: EditFormComponent<TEntity> = { entity: undefined };
   buttonSortText: string;
+  title: string;
 
   onFocus = new EventEmitter<boolean>();
 
@@ -42,6 +43,12 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
 
   protected abstract getNameProperty(): string;
 
+  protected abstract getTitle(): string;
+
+  ngOnInit(): void {
+    this.getItems();
+    this.title = this.getTitle();
+  }
   ngAfterViewInit(): void {
     setTimeout(() => {
       let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getÈditFormComponent());
@@ -54,10 +61,6 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
         setTimeout(() => {
           this.refresh();
         }));
-  }
-
-  ngOnInit(): void {
-    this.getItems();
   }
 
   getItems(): void {
