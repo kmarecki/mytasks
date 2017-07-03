@@ -87,7 +87,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
     this.service.delete(this.getId(entity))
       .then(() => {
         this.getItems();
-        if (this.getId(this.editor.entity) == this.getId(entity)) {
+        if (this.editor.entity && this.getId(this.editor.entity) == this.getId(entity)) {
           this.editor.entity = undefined;
         }
       });

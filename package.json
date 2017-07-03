@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "watch": "ng build -w"
+    "watch": "ng build -w",
+    "migrate": "dotnet ef database update"
   },
   "private": true,
   "dependencies": {
