@@ -10,7 +10,7 @@ import { TaskItemComponent } from './task-item.component';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'app-tasks',
   templateUrl: '../entity-form/entity-form.component.html',
   styleUrls: ['./tasks.component.css'],
   providers: [TasksService]

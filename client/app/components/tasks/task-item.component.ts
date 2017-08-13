@@ -4,7 +4,7 @@ import { Task } from '../../services/tasks/task';
 import { ListItemComponent } from '../entity-form/list-item.component';
 
 @Component({
-  selector: 'app-project-item',
+  selector: 'app-task-item',
   templateUrl: './task-item.component.html',
 })
 export class TaskItemComponent implements ListItemComponent<Task>  {
