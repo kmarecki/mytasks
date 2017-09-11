@@ -24,7 +24,9 @@
             "command": "tsc",
             "isShellCommand": true,
             "showOutput": "always",
-            "args": [""],
+            "args": [
+                ""
+            ],
             "problemMatcher": "$tsc"
         },
         {
@@ -40,8 +42,19 @@
             "command": "ng",
             "isShellCommand": true,
             "showOutput": "always",
-            "args": ["build", "-pr", "false"],
+            "args": [
+                "build",
+                "-pr",
+                "false"
+            ],
             "problemMatcher": "$tsc"
+        },
+        {
+            "type": "npm",
+            "script": "watch",
+            "problemMatcher": [
+                "$eslint-compact"
+            ]
         }
     ]
 }
