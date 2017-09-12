@@ -1,4 +1,8 @@
-<div *ngIf="entity" class="form-group">
-    <label for="projectName">Project name:</label>
-    <input [focus]="onFocus" type="text" class="form-control" name="projectName" [(ngModel)]="entity.projectName" />
-</div>
+<form *ngIf="entity" class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="projectName">Project name:</label>
+        <div class="col-sm-10">
+            <input [focus]="onFocus" type="text" class="form-control" name="projectName" [(ngModel)]="entity.projectName" />
+        </div>
+    </div>
+</form>
