@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "",
     "noEmit": true,
     "declaration": false,
     "moduleResolution": "node",

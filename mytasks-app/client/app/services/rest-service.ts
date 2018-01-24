@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export abstract class RestService<TEntity> {
@@ -21,7 +22,7 @@ export abstract class RestService<TEntity> {
             .catch(this.handleError);
     }
 
-    getProject(id: number): Promise<TEntity> {
+    getProject(id: number): Promise<ErrorObservable | TEntity> {
         const url = `${this.getBaseUrl()}/${id}`;
         return this.http.get(url)
             .toPromise()
@@ -29,14 +30,14 @@ export abstract class RestService<TEntity> {
             .catch(this.handleError);
     }
 
-    create(data: any): Promise<TEntity> {
+    create(data: any): Promise<ErrorObservable | TEntity> {
         return this.http.post(this.getBaseUrl(), JSON.stringify(data), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as TEntity)
             .catch(this.handleError);
     }
 
-    update(id: number, project: TEntity): Promise<TEntity> {
+    update(id: number, project: TEntity): Promise<ErrorObservable | TEntity> {
         const url = `${this.getBaseUrl()}/${id}`;
         return this.http
             .put(url, JSON.stringify(project), { headers: this.headers })
