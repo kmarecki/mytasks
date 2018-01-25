@@ -10,7 +10,7 @@
             "request": "launch",
             //"preLaunchTask": "deploy",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.1/mytasks.dll",
+            "program": "${workspaceRoot}/bin/Debug/netcoreapp2.0/mytasks.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,

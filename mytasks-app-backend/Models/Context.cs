@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace mytasks.Models {
 
-    public class MyTasksContext: DbContext {
+    public class MyTasksDbContext: DbContext {
 
-        public MyTasksContext(DbContextOptions<MyTasksContext> options)
+        public MyTasksDbContext(DbContextOptions<MyTasksDbContext> options)
             : base(options) { }
 
         public DbSet<Project> Projects { get; set;}

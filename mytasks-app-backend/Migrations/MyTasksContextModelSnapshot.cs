@@ -7,7 +7,7 @@ using mytasks.Models;
 
 namespace mytasks.Migrations
 {
-    [DbContext(typeof(MyTasksContext))]
+    [DbContext(typeof(MyTasksDbContext))]
     partial class MyTasksContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -16,14 +16,18 @@ export abstract class RestService<TEntity> {
 
     protected abstract getBaseUrl(): string;
 
+    private getRestApiUrl(): string {
+        return `http://localhost:5000/${this.getBaseUrl()}`;
+    }
+
     getProjects(): Observable<TEntity[]> {
-        return this.http.get(this.getBaseUrl())
+        return this.http.get(this.getRestApiUrl())
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getProject(id: number): Promise<ErrorObservable | TEntity> {
-        const url = `${this.getBaseUrl()}/${id}`;
+        const url = `${this.getRestApiUrl()}/${id}`;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json().data as TEntity)
@@ -31,14 +35,14 @@ export abstract class RestService<TEntity> {
     }
 
     create(data: any): Promise<ErrorObservable | TEntity> {
-        return this.http.post(this.getBaseUrl(), JSON.stringify(data), { headers: this.headers })
+        return this.http.post(this.getRestApiUrl(), JSON.stringify(data), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as TEntity)
             .catch(this.handleError);
     }
 
     update(id: number, project: TEntity): Promise<ErrorObservable | TEntity> {
-        const url = `${this.getBaseUrl()}/${id}`;
+        const url = `${this.getRestApiUrl()}/${id}`;
         return this.http
             .put(url, JSON.stringify(project), { headers: this.headers })
             .toPromise()
@@ -47,7 +51,7 @@ export abstract class RestService<TEntity> {
     }
 
     delete(id: number): Promise<void> {
-        const url = `${this.getBaseUrl()}/${id}`;
+        const url = `${this.getRestApiUrl()}/${id}`;
         return this.http
             .delete(url, { headers: this.headers })
             .toPromise()

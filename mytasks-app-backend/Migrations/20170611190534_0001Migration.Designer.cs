@@ -7,7 +7,7 @@ using mytasks.Models;
 
 namespace mytasks.Migrations
 {
-    [DbContext(typeof(MyTasksContext))]
+    [DbContext(typeof(MyTasksDbContext))]
     [Migration("20170611190534_0001Migration")]
     partial class _0001Migration
     {

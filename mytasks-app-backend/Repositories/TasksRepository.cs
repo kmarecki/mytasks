@@ -5,13 +5,13 @@ using mytasks.Models;
 
 namespace mytasks.Repositories {
 
-    public interface ITasksRepository : IRepository<MyTasksContext, Task> {
+    public interface ITasksRepository : IRepository<MyTasksDbContext, Task> {
     
     }
     
-    public class TasksRepository : Repository<MyTasksContext, Task>, ITasksRepository
+    public class TasksRepository : Repository<MyTasksDbContext, Task>, ITasksRepository
      {
-        public TasksRepository(MyTasksContext context) :
+        public TasksRepository(MyTasksDbContext context) :
             base(context) { }
 
         public override void Add(Task entity) {
