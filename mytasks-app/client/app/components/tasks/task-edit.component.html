@@ -14,15 +14,19 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="plannedHours">Planed:</label>
         <div class="col-sm-2">
-            <input type="number" class="form-control col-sm-10" name="plannedHours" [(ngModel)]="entity.plannedHours" />
+            <input type="number" class="form-control col-sm-10" name="plannedHours" 
+                [(ngModel)]="entity.plannedHours" [min]="0"/>
         </div>
         <label class="control-label col-sm-2" for="actualHours">Actual:</label>
         <div class="col-sm-2">
-            <input type="number" class="form-control col-sm-10" name="actualHours" [(ngModel)]="entity.actualHours" />
+            <input type="number" class="form-control col-sm-10" name="actualHours" 
+                [(ngModel)]="entity.actualHours" [max]="entity.plannedHours" [min]="0"
+            />
         </div>
         <label class="control-label col-sm-2" for="leftHours">Left:</label>
         <div class="col-sm-2">
-            <input type="number" class="form-control col-sm-10" [value]="entity.plannedHours-entity.actualHours" disabled="disabled"/>
+            <input type="number" class="form-control col-sm-10" [value]="entity.plannedHours-entity.actualHours" disabled="disabled"
+            />
         </div>
     </div>
 </form>

@@ -1,6 +1,7 @@
 import {
   Component, ComponentFactoryResolver, Type
 } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 import { Project } from '../../services/projects/project';
 import { ProjectsService } from '../../services/projects/projects.service';
@@ -46,8 +47,9 @@ export class ProjectsComponent extends EntityFormComponent<Project>  {
 
   constructor(
     projectService: ProjectsService,
-    componentFactoryResolver: ComponentFactoryResolver) {
-    super(projectService, componentFactoryResolver);
+    componentFactoryResolver: ComponentFactoryResolver,
+    modalService: BsModalService) {
+    super(projectService, componentFactoryResolver, modalService);
   }
 
 

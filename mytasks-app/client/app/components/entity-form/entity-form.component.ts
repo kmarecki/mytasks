@@ -3,6 +3,7 @@ import {
   Component, ComponentFactoryResolver, ComponentRef, OnInit, AfterViewInit, EventEmitter,
   QueryList, ViewChild, ViewChildren, Type, ViewContainerRef, AfterContentInit, AfterViewChecked
 } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -12,6 +13,8 @@ import { ListItemDirective } from './list-item.directive';
 
 import { EditFormComponent } from './edit-form.component';
 import { ListItemComponent } from './list-item.component';
+import { MessageBoxComponent } from '../message-box/message-box.component';
+
 
 export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
 
@@ -29,7 +32,8 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
 
   constructor(
     private service: RestService<TEntity>,
-    private componentFactoryResolver: ComponentFactoryResolver) { }
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private modalService: BsModalService) { }
 
   protected abstract getÈditFormComponent(): Type<{}>;
 
@@ -66,11 +70,11 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   getItems(): void {
     this.service.getProjects()
       .subscribe(
-      projects => {
-        this.items = projects;
-        this.sortItems()
-      },
-      error => this.errorMessage = error);
+        projects => {
+          this.items = projects;
+          this.sortItems()
+        },
+        error => this.errorMessage = error);
   }
 
   create(): void {
@@ -84,13 +88,20 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
 
   delete(entity: TEntity): void {
-    this.service.delete(this.getId(entity))
-      .then(() => {
-        this.getItems();
-        if (this.editor.entity && this.getId(this.editor.entity) == this.getId(entity)) {
-          this.editor.entity = undefined;
-        }
-      });
+    const modal = (<MessageBoxComponent>this.modalService.show(MessageBoxComponent).content);
+    modal.message = "Do you want to delete ?";
+    modal.onClose.subscribe(result => {
+
+      if (result === true) {
+        this.service.delete(this.getId(entity))
+          .then(() => {
+            this.getItems();
+            if (this.editor.entity && this.getId(this.editor.entity) == this.getId(entity)) {
+              this.editor.entity = undefined;
+            }
+          });
+      }
+    })
   }
 
   save(): void {

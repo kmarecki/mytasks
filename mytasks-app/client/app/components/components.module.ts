@@ -23,6 +23,7 @@ import { ProjectItemComponent } from './projects/project-item.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskEditComponent } from './tasks/task-edit.component';
 import { TaskItemComponent } from './tasks/task-item.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 
 
@@ -34,8 +35,8 @@ import { TaskItemComponent } from './tasks/task-item.component';
     DirectivesModule
   ],
   declarations: [EditFormDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent,
-    TasksComponent, TaskEditComponent, TaskItemComponent
+    TasksComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent
   ],
-  entryComponents: [ProjectsEditComponent, ProjectItemComponent, TaskEditComponent, TaskItemComponent ]
+  entryComponents: [ProjectsEditComponent, ProjectItemComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent ]
 })
 export class ComponentsModule { }

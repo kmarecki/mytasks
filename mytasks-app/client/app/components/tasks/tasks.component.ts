@@ -2,6 +2,8 @@ import {
   Component, ComponentFactoryResolver, Type
 } from '@angular/core';
 
+import { BsModalService } from 'ngx-bootstrap/modal';
+
 import { Task } from '../../services/tasks/task';
 import { TasksService } from '../../services/tasks/tasks.service';
 
@@ -47,8 +49,10 @@ export class TasksComponent extends EntityFormComponent<Task>  {
 
   constructor(
     taskService: TasksService,
-    componentFactoryResolver: ComponentFactoryResolver) {
-    super(taskService, componentFactoryResolver);
+    componentFactoryResolver: ComponentFactoryResolver,
+    modalService: BsModalService
+  ) {
+    super(taskService, componentFactoryResolver, modalService);
   }
 
 
