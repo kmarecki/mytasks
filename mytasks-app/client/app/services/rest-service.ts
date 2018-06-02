@@ -26,7 +26,7 @@ export abstract class RestService<TEntity> {
             .catch(this.handleError);
     }
 
-    getProject(id: number): Promise<ErrorObservable | TEntity> {
+    getProject(id: number): Promise<ErrorObservable<never> | TEntity> {
         const url = `${this.getRestApiUrl()}/${id}`;
         return this.http.get(url)
             .toPromise()
@@ -34,14 +34,14 @@ export abstract class RestService<TEntity> {
             .catch(this.handleError);
     }
 
-    create(data: any): Promise<ErrorObservable | TEntity> {
+    create(data: any): Promise<ErrorObservable<never> | TEntity> {
         return this.http.post(this.getRestApiUrl(), JSON.stringify(data), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as TEntity)
             .catch(this.handleError);
     }
 
-    update(id: number, project: TEntity): Promise<ErrorObservable | TEntity> {
+    update(id: number, project: TEntity): Promise<ErrorObservable<never> | TEntity> {
         const url = `${this.getRestApiUrl()}/${id}`;
         return this.http
             .put(url, JSON.stringify(project), { headers: this.headers })
