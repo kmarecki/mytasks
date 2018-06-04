@@ -1,7 +1,11 @@
+import { TaskState } from "./task-state";
+
 export class Task {
     taskId: number;
 
     taskName: string;
+
+    taskState: TaskState;
 
     created: Date;
 
@@ -12,5 +16,4 @@ export class Task {
     plannedHours: number;
 
     actualHours: number;
- 
 }

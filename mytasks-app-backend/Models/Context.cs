@@ -16,12 +16,7 @@ namespace mytasks.Models {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<Project>()
-                .Property(p => p.Created)
-                .HasDefaultValue(DateTime.UtcNow);
-            modelBuilder.Entity<Task>()
-                .Property(p => p.Created)
-                .HasDefaultValue(DateTime.UtcNow);
+            
         }
     }
 }

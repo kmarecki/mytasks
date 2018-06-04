@@ -12,6 +12,7 @@ namespace mytasks.Repositories {
         }
 
         public override void Add(Project entity) {
+            entity.Created = DateTime.UtcNow;
             _context.Add(entity);
         }
 

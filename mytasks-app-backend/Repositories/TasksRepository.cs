@@ -15,6 +15,8 @@ namespace mytasks.Repositories {
             base(context) { }
 
         public override void Add(Task entity) {
+            entity.Created = DateTime.UtcNow;
+            entity.State = TaskState.New;
             _context.Add(entity);
         }
 

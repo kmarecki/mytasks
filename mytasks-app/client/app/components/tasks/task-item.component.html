@@ -1,1 +1,11 @@
- <span *ngIf="item" >{{item.taskName}}</span>
+<div *ngIf="item" class="row">
+    <div class="col-md-6">
+        <span>{{item.taskName}}</span>
+    </div>
+    <div class="col-md-3">
+        <span>{{item.state}}</span>
+    </div>
+    <div class="col-md-3">
+        <span>{{item.created}}</span>
+    </div>
+</div>
