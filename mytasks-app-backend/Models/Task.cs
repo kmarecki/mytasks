@@ -12,13 +12,13 @@ namespace mytasks.Models {
 
         public DateTime? Closed { get; set; }
 
-
         public string Description { get; set; }
-
 
         public decimal PlannedHours { get; set; }
 
         public decimal ActualHours { get; set; }
+
+        public TaskState State { get; set; }
 
     }
 }

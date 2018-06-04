@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace mytasks.Models {
@@ -12,6 +13,15 @@ namespace mytasks.Models {
         public DbSet<Task> Tasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Created)
+                .HasDefaultValue(DateTime.UtcNow);
+            modelBuilder.Entity<Task>()
+                .Property(p => p.Created)
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }
