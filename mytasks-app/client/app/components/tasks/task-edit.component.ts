@@ -1,11 +1,20 @@
-import { Component, Input, Type } from '@angular/core';
+import { Component, Input, Type, OnInit } from "@angular/core";
 
-import { EditFormComponent } from '../entity-form/edit-form.component';
-import { Task } from '../../services/tasks/task';
+import { EditFormComponent } from "../entity-form/edit-form.component";
+import { Task } from "../../services/tasks/task";
+import { TaskState } from "../../services/tasks/task-state";
+import { EnumHelper,EnumOption } from "../../../helpers/enum-helper";
 
 @Component({
-    templateUrl: './task-edit.component.html'
+  templateUrl: "./task-edit.component.html"
 })
-export class TaskEditComponent implements EditFormComponent<Task> {
-    @Input() entity: Task
+export class TaskEditComponent implements EditFormComponent<Task>, OnInit {
+  @Input() entity: Task;
+
+  TaskState = TaskState;
+  taskstates: EnumOption[];
+
+  ngOnInit(): void {
+    this.taskstates = EnumHelper.getEnumOptions(TaskState);
+  }
 }
