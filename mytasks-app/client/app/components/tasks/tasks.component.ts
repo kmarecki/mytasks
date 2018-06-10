@@ -8,6 +8,7 @@ import { Task } from '../../services/tasks/task';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 import { TaskEditComponent } from './task-edit.component';
+import { TaskListHeaderComponent } from './task-list-header.component';
 import { TaskItemComponent } from './task-item.component';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
 
@@ -27,10 +28,14 @@ export class TasksComponent extends EntityFormComponent<Task>  {
     return 'taskName';
   }
 
-  protected getÈditFormComponent(): Type<{}> {
+  protected getEditFormComponent(): Type<{}> {
     return TaskEditComponent;
   }
 
+  protected getListHeaderComponent(): Type<{}> {
+    return TaskListHeaderComponent;
+  }
+  
   protected getListItemComponent(): Type<{}> {
     return TaskItemComponent;
   }

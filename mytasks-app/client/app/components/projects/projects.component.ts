@@ -9,6 +9,7 @@ import { ProjectsService } from '../../services/projects/projects.service';
 import { ProjectsEditComponent } from './projects-edit.component';
 import { ProjectItemComponent } from './project-item.component';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
+import { ProjectListHeaderComponent } from './project-list-header.component';
 
 @Component({
   selector: 'app-projects',
@@ -25,8 +26,12 @@ export class ProjectsComponent extends EntityFormComponent<Project>  {
     return 'projectName';
   }
 
-  protected getÈditFormComponent(): Type<{}> {
+  protected getEditFormComponent(): Type<{}> {
     return ProjectsEditComponent;
+  }
+
+  protected getListHeaderComponent(): Type<{}> {
+    return ProjectListHeaderComponent;
   }
 
   protected getListItemComponent(): Type<{}> {

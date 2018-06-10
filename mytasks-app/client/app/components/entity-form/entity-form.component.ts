@@ -14,6 +14,7 @@ import { ListItemDirective } from './list-item.directive';
 import { EditFormComponent } from './edit-form.component';
 import { ListItemComponent } from './list-item.component';
 import { MessageBoxComponent } from '../message-box/message-box.component';
+import { ListHeaderDirective } from './list-header.directive';
 
 
 export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
@@ -27,6 +28,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   onFocus = new EventEmitter<boolean>();
 
   @ViewChild(EditFormDirective) editForm: EditFormDirective;
+  @ViewChild(ListHeaderDirective) listHeader: ListHeaderDirective;
   @ViewChildren(ListItemDirective) listItem: QueryList<ListItemDirective>;
 
 
@@ -35,7 +37,9 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
     private componentFactoryResolver: ComponentFactoryResolver,
     private modalService: BsModalService) { }
 
-  protected abstract getÈditFormComponent(): Type<{}>;
+  protected abstract getEditFormComponent(): Type<{}>;
+
+  protected abstract getListHeaderComponent(): Type<{}>;
 
   protected abstract getListItemComponent(): Type<{}>;
 
@@ -55,9 +59,13 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
   ngAfterViewInit(): void {
     setTimeout(() => {
-      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getÈditFormComponent());
-      let viewContainerRef = this.editForm.viewContainerRef;
-      this.editor = <EditFormComponent<TEntity>>viewContainerRef.createComponent(componentFactory).instance;
+      const listHeaderFactory = this.componentFactoryResolver.resolveComponentFactory(this.getListHeaderComponent());
+      const listHeaderContainerRef = this.listHeader.viewContainerRef;
+      listHeaderContainerRef.createComponent(listHeaderFactory);
+
+      const editFormFactory = this.componentFactoryResolver.resolveComponentFactory(this.getEditFormComponent());
+      const editFormContainerRef = this.editForm.viewContainerRef;
+      this.editor = <EditFormComponent<TEntity>>editFormContainerRef.createComponent(editFormFactory).instance;
     });
 
     this.listItem.changes
@@ -122,12 +130,12 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
 
   refresh(): void {
 
-    let itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getListItemComponent())
-    let itemRefs = this.listItem.toArray();
+    const itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getListItemComponent())
+    const itemRefs = this.listItem.toArray();
     for (let i = 0; i < itemRefs.length; i++) {
-      let itemRef = itemRefs[i].viewContainerRef;
+      const itemRef = itemRefs[i].viewContainerRef;
       itemRef.clear();
-      let itemComponent = <ComponentRef<ListItemComponent<TEntity>>>itemRef.createComponent(itemComponentFactory);
+      const itemComponent = <ComponentRef<ListItemComponent<TEntity>>>itemRef.createComponent(itemComponentFactory);
       itemComponent.changeDetectorRef.detectChanges();
       itemComponent.instance.item = itemRefs[i].item;
     }

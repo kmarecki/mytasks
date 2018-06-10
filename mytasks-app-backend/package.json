@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "license": "MIT",
     "scripts": {
-      "start": "dotnet run bin/Debug/netcoreapp2.0/mytasks.dll",
+      "start": "dotnet run bin/Debug/netcoreapp2.1/mytasks.dll",
       "build": "dotnet build",
       "test": "",
       "migrate": "dotnet ef database update"

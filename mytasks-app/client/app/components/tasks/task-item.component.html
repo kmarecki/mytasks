@@ -1,11 +1,17 @@
 <div *ngIf="item" class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <span>{{item.taskName}}</span>
     </div>
     <div class="col-md-3">
-        <span>{{item.state}}</span>
+        <span>{{getStateName(item.state)}}</span>
     </div>
     <div class="col-md-3">
         <span>{{item.created}}</span>
+    </div>
+    <div class="col-md-1">
+        <span>{{item.plannedHours}}</span>
+    </div>
+    <div class="col-md-1">
+        <span>{{item.actualHours}}</span>
     </div>
 </div>
