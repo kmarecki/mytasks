@@ -1,7 +1,5 @@
-@import '~bootstrap/dist/css/bootstrap.css';
-@import '~roboto-fontface/css/roboto/roboto-fontface.css';
-
 /* You can add global styles to this file, and also import other style files */
+
 body * {
     font-family: 'Roboto', sans-serif !important;
 }
@@ -20,4 +18,13 @@ ul {
 .vertical-align > [class^="col-"],
 .vertical-align > [class*=" col-"] {
   align-self: flex-start;
+}
+
+/*Ensure that FontAwesome font will be alwyas loaded*/
+.fa {
+  font-family: FontAwesome !important;
+}
+
+.glyphicon {
+  font-family: 'Glyphicons Halflings' !important;
 }

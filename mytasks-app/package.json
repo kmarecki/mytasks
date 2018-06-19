@@ -5,13 +5,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "dotnet build & tsc",
+    "build": "tsc",
     "build-client": "ng build -pr false",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "watch": "ng build -w",
-    "migrate": "dotnet ef database update"
+    "watch": "ng build -w"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +27,7 @@
     "@angular/router": "^6.0.3",
     "bootstrap": "3.3.5",
     "core-js": "^2.5.7",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.10",
     "ngx-bootstrap": "^3.0.0",
