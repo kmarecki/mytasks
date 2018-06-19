@@ -12,19 +12,19 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist",
-            "index": "client/index.html",
-            "main": "client/main.ts",
-            "tsConfig": "client/tsconfig.app.json",
-            "polyfills": "client/polyfills.ts",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
             "assets": [
-              "client/assets",
-              "client/favicon.ico"
+              "src/assets",
+              "src/favicon.ico"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
               "node_modules/font-awesome/css/font-awesome.css",
-              "client/styles.css"
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -44,8 +44,8 @@
               "buildOptimizer": true,
               "fileReplacements": [
                 {
-                  "replace": "client/environments/environment.ts",
-                  "with": "client/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -71,10 +71,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "client/test.ts",
+            "main": "src/test.ts",
             "karmaConfig": "./karma.conf.js",
-            "polyfills": "client/polyfills.ts",
-            "tsConfig": "client/tsconfig.spec.json",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.js"
@@ -83,11 +83,11 @@
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
               "node_modules/font-awesome/css/font-awesome.css",
-              "client/styles.css"
+              "src/styles.css"
             ],
             "assets": [
-              "client/assets",
-              "client/favicon.ico"
+              "src/assets",
+              "src/favicon.ico"
             ]
           }
         },
@@ -95,8 +95,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "client/tsconfig.app.json",
-              "client/tsconfig.spec.json"
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
             ],
             "exclude": []
           }
