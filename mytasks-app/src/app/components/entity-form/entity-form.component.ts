@@ -1,7 +1,19 @@
+import { ListHeaderComponent, SortEvent } from './list-header/list-header.component';
 import * as _ from 'lodash';
 import {
-  Component, ComponentFactoryResolver, ComponentRef, OnInit, AfterViewInit, EventEmitter,
-  QueryList, ViewChild, ViewChildren, Type, ViewContainerRef, AfterContentInit, AfterViewChecked
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnInit,
+  AfterViewInit,
+  EventEmitter,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+  Type,
+  ViewContainerRef,
+  AfterContentInit,
+  AfterViewChecked
 } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 
@@ -15,10 +27,9 @@ import { EditFormComponent } from './edit-form.component';
 import { ListItemComponent } from './list-item.component';
 import { MessageBoxComponent } from '../message-box/message-box.component';
 import { ListHeaderDirective } from './list-header.directive';
-
+import { SortDirection, ListColumnModel } from './list-header/list.header.model';
 
 export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
-
   items: TEntity[];
   errorMessage: string;
   editor: EditFormComponent<TEntity> = { entity: undefined };
@@ -28,18 +39,15 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   onFocus = new EventEmitter<boolean>();
 
   @ViewChild(EditFormDirective) editForm: EditFormDirective;
-  @ViewChild(ListHeaderDirective) listHeader: ListHeaderDirective;
   @ViewChildren(ListItemDirective) listItem: QueryList<ListItemDirective>;
-
 
   constructor(
     private service: RestService<TEntity>,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService
+  ) {}
 
   protected abstract getEditFormComponent(): Type<{}>;
-
-  protected abstract getListHeaderComponent(): Type<{}>;
 
   protected abstract getListItemComponent(): Type<{}>;
 
@@ -49,7 +57,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
 
   protected abstract getId(entity: TEntity): number;
 
-  protected abstract getNameProperty(): string;
+  protected abstract getColumns(): ListColumnModel[];
 
   protected abstract getTitle(): string;
 
@@ -59,30 +67,26 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
   ngAfterViewInit(): void {
     setTimeout(() => {
-      const listHeaderFactory = this.componentFactoryResolver.resolveComponentFactory(this.getListHeaderComponent());
-      const listHeaderContainerRef = this.listHeader.viewContainerRef;
-      listHeaderContainerRef.createComponent(listHeaderFactory);
-
-      const editFormFactory = this.componentFactoryResolver.resolveComponentFactory(this.getEditFormComponent());
+      const editFormFactory = this.componentFactoryResolver.resolveComponentFactory(
+        this.getEditFormComponent()
+      );
       const editFormContainerRef = this.editForm.viewContainerRef;
-      this.editor = <EditFormComponent<TEntity>>editFormContainerRef.createComponent(editFormFactory).instance;
+      this.editor = <EditFormComponent<TEntity>>(
+        editFormContainerRef.createComponent(editFormFactory).instance
+      );
     });
 
-    this.listItem.changes
-      .subscribe(() =>
-        setTimeout(() => {
-          this.refresh();
-        }));
+    this.listItem.changes.subscribe(() =>
+      setTimeout(() => {
+        this.refresh();
+      })
+    );
   }
 
   getItems(): void {
-    this.service.getProjects()
-      .subscribe(
-        projects => {
-          this.items = projects;
-          this.sortItems()
-        },
-        error => this.errorMessage = error);
+    this.service.getProjects().subscribe((projects) => {
+      this.items = projects;
+    }, (error) => (this.errorMessage = error));
   }
 
   create(): void {
@@ -96,32 +100,29 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
 
   delete(entity: TEntity): void {
-    const modal = (<MessageBoxComponent>this.modalService.show(MessageBoxComponent).content);
-    modal.message = "Do you want to delete ?";
-    modal.onClose.subscribe(result => {
-
+    const modal = <MessageBoxComponent>this.modalService.show(MessageBoxComponent).content;
+    modal.message = 'Do you want to delete ?';
+    modal.onClose.subscribe((result) => {
       if (result === true) {
-        this.service.delete(this.getId(entity))
-          .then(() => {
-            this.getItems();
-            if (this.editor.entity && this.getId(this.editor.entity) == this.getId(entity)) {
-              this.editor.entity = undefined;
-            }
-          });
+        this.service.delete(this.getId(entity)).then(() => {
+          this.getItems();
+          if (this.editor.entity && this.getId(this.editor.entity) == this.getId(entity)) {
+            this.editor.entity = undefined;
+          }
+        });
       }
-    })
+    });
   }
 
   save(): void {
-    const promise = this.getId(this.editor.entity) ?
-      this.service.update(this.getId(this.editor.entity), this.editor.entity) :
-      this.service.create(this.createEntityFromEditor());
+    const promise = this.getId(this.editor.entity)
+      ? this.service.update(this.getId(this.editor.entity), this.editor.entity)
+      : this.service.create(this.createEntityFromEditor());
 
-    promise
-      .then(() => {
-        this.getItems();
-        this.editor.entity = undefined;
-      });
+    promise.then(() => {
+      this.getItems();
+      this.editor.entity = undefined;
+    });
   }
 
   cancel(): void {
@@ -129,27 +130,24 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
 
   refresh(): void {
-
-    const itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getListItemComponent())
+    const itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      this.getListItemComponent()
+    );
     const itemRefs = this.listItem.toArray();
     for (let i = 0; i < itemRefs.length; i++) {
       const itemRef = itemRefs[i].viewContainerRef;
       itemRef.clear();
-      const itemComponent = <ComponentRef<ListItemComponent<TEntity>>>itemRef.createComponent(itemComponentFactory);
+      const itemComponent = <ComponentRef<ListItemComponent<TEntity>>>(
+        itemRef.createComponent(itemComponentFactory)
+      );
       itemComponent.changeDetectorRef.detectChanges();
       itemComponent.instance.item = itemRefs[i].item;
     }
   }
 
-  private ascending = true;
-  private sortItems(): void {
-    this.items = _.orderBy(this.items, [this.getNameProperty()], [this.ascending ? 'asc' : 'desc']);
-    this.buttonSortText = this.ascending ? 'Sort asc' : 'Sort desc';
+  private onSortItems(event: SortEvent): void {
+    if (event.direction != SortDirection.None) {
+      this.items = _.orderBy(this.items, [event.column], [event.direction === SortDirection.Ascending ? 'asc' : 'desc']);
+    }
   }
-
-  sort(): void {
-    this.ascending = !this.ascending;
-    this.sortItems();
-  }
-
 }

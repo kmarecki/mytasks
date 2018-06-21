@@ -1,5 +1,4 @@
 import { ListHeaderDirective } from './entity-form/list-header.directive';
-import { TaskListHeaderComponent } from './tasks/task-list-header.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,12 +20,12 @@ import { RedDirective } from '../directives/red/red.directive';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectsEditComponent } from './projects/projects-edit.component';
 import { ProjectItemComponent } from './projects/project-item.component';
-import { ProjectListHeaderComponent } from './projects/project-list-header.component';
 
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskEditComponent } from './tasks/task-edit.component';
 import { TaskItemComponent } from './tasks/task-item.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { ListHeaderComponent } from './entity-form/list-header/list-header.component';
 
 
 
@@ -38,8 +37,8 @@ import { MessageBoxComponent } from './message-box/message-box.component';
     DirectivesModule
   ],
   declarations: [EditFormDirective, ListHeaderDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent,
-    ProjectListHeaderComponent, TasksComponent, TaskEditComponent, TaskListHeaderComponent, TaskItemComponent, MessageBoxComponent
+    TasksComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent, ListHeaderComponent
   ],
-  entryComponents: [ProjectsEditComponent, ProjectListHeaderComponent, ProjectItemComponent, TaskEditComponent, TaskListHeaderComponent, TaskItemComponent, MessageBoxComponent ]
+  entryComponents: [ProjectsEditComponent, ProjectItemComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent ]
 })
 export class ComponentsModule { }

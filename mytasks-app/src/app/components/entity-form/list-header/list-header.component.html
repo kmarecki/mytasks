@@ -1,0 +1,8 @@
+<div class="row">
+  <div *ngFor="let column of model.columns" [ngClass]="'col-md-' + column.gridWidth">
+    <button type="button" class="btn btn-default btn-sm">
+      <b>{{column.name}}</b>
+      <i class="fa fa-lg fa-angle-down" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>

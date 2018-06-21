@@ -22,8 +22,8 @@
       <thead>
         <tr>
           <th class="col-xs-10">
-            <!-- <button type="button" class="btn-xs" (click)="sort()">{{buttonSortText}}</button> -->
-            <ng-template list-header></ng-template>
+            <!-- <ng-template list-header></ng-template> -->
+            <list-header [columns]="getColumns()" (sort)="onSort($event)"></list-header>
           </th>
         </tr>
       </thead>

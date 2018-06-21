@@ -8,9 +8,9 @@ import { Task } from '../../services/tasks/task';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 import { TaskEditComponent } from './task-edit.component';
-import { TaskListHeaderComponent } from './task-list-header.component';
 import { TaskItemComponent } from './task-item.component';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
+import { ListColumnModel } from '../entity-form/list-header/list.header.model';
 
 @Component({
   selector: 'app-tasks',
@@ -24,18 +24,20 @@ export class TasksComponent extends EntityFormComponent<Task>  {
     return 'Tasks';
   }
 
-  protected getNameProperty(): string {
-    return 'taskName';
+  protected getColumns(): ListColumnModel[] {
+    return [
+      new ListColumnModel("name", "Name", 4),
+      new ListColumnModel("state", "State", 3),
+      new ListColumnModel("create", "Created", 3),
+      new ListColumnModel("planned", "Planned", 1),
+      new ListColumnModel("actual", "Actual", 1),
+    ]
   }
 
   protected getEditFormComponent(): Type<{}> {
     return TaskEditComponent;
   }
 
-  protected getListHeaderComponent(): Type<{}> {
-    return TaskListHeaderComponent;
-  }
-  
   protected getListItemComponent(): Type<{}> {
     return TaskItemComponent;
   }
