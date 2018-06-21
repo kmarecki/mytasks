@@ -23,7 +23,7 @@ export class ProjectsComponent extends EntityFormComponent<Project>  {
   }
 
   protected getColumns(): ListColumnModel[] {
-    return [new ListColumnModel("name", "Name", 12)]
+    return [new ListColumnModel("projectName", "Name", 12)]
   }
 
   protected getEditFormComponent(): Type<{}> {

@@ -26,11 +26,11 @@ export class TasksComponent extends EntityFormComponent<Task>  {
 
   protected getColumns(): ListColumnModel[] {
     return [
-      new ListColumnModel("name", "Name", 4),
-      new ListColumnModel("state", "State", 3),
-      new ListColumnModel("create", "Created", 3),
-      new ListColumnModel("planned", "Planned", 1),
-      new ListColumnModel("actual", "Actual", 1),
+      new ListColumnModel("taskName", "Name", 4),
+      new ListColumnModel("taskState", "State", 3),
+      new ListColumnModel("created", "Created", 3),
+      new ListColumnModel("plannedHours", "Planned", 1),
+      new ListColumnModel("actualHours", "Actual", 1),
     ]
   }
 

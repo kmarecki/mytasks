@@ -35,6 +35,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   editor: EditFormComponent<TEntity> = { entity: undefined };
   buttonSortText: string;
   title: string;
+  lastSortEvent: SortEvent;
 
   onFocus = new EventEmitter<boolean>();
 
@@ -86,6 +87,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   getItems(): void {
     this.service.getProjects().subscribe((projects) => {
       this.items = projects;
+      this.sortItems();
     }, (error) => (this.errorMessage = error));
   }
 
@@ -145,9 +147,17 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
     }
   }
 
-  private onSortItems(event: SortEvent): void {
-    if (event.direction != SortDirection.None) {
-      this.items = _.orderBy(this.items, [event.column], [event.direction === SortDirection.Ascending ? 'asc' : 'desc']);
+  private onSort(event: SortEvent): void {
+    this.lastSortEvent = event;
+    this.sortItems();
+  }
+
+  private sortItems(): void {
+    if (this.lastSortEvent) {
+      const event = this.lastSortEvent;
+      if (event.direction != SortDirection.None) {
+        this.items = _.orderBy(this.items, [event.column], [event.direction === SortDirection.Ascending ? 'asc' : 'desc']);
+      }
     }
   }
 }
