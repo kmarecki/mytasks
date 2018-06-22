@@ -20,13 +20,13 @@ export abstract class RestService<TEntity> {
         return `http://localhost:5000/${this.getBaseUrl()}`;
     }
 
-    getProjects(): Observable<TEntity[]> {
+    getAll(): Observable<TEntity[]> {
         return this.http.get(this.getRestApiUrl())
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    getProject(id: number): Promise<ErrorObservable<never> | TEntity> {
+    get(id: number): Promise<ErrorObservable<never> | TEntity> {
         const url = `${this.getRestApiUrl()}/${id}`;
         return this.http.get(url)
             .toPromise()

@@ -16,4 +16,6 @@ export class Task {
     plannedHours: number;
 
     actualHours: number;
+
+    projectId: number;
 }

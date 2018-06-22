@@ -46,10 +46,6 @@ export class TasksComponent extends EntityFormComponent<Task>  {
     return new Task();
   }
 
-  protected createEntityFromEditor() {
-    return { taskName: this.editor.entity.taskName }
-  }
-
   protected getId(entity: Task): number {
     return entity.taskId;
   }

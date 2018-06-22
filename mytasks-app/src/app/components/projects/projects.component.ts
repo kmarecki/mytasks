@@ -38,10 +38,6 @@ export class ProjectsComponent extends EntityFormComponent<Project>  {
     return new Project();
   }
 
-  protected createEntityFromEditor() {
-    return { projectName: this.editor.entity.projectName }
-  }
-
   protected getId(entity: Project): number {
     return entity.projectId;
   }

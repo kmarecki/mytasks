@@ -54,8 +54,6 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
 
   protected abstract newEntity(): TEntity;
 
-  protected abstract createEntityFromEditor(): any;
-
   protected abstract getId(entity: TEntity): number;
 
   protected abstract getColumns(): ListColumnModel[];
@@ -85,8 +83,8 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
 
   getItems(): void {
-    this.service.getProjects().subscribe((projects) => {
-      this.items = projects;
+    this.service.getAll().subscribe((items) => {
+      this.items = items;
       this.sortItems();
     }, (error) => (this.errorMessage = error));
   }
@@ -119,7 +117,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   save(): void {
     const promise = this.getId(this.editor.entity)
       ? this.service.update(this.getId(this.editor.entity), this.editor.entity)
-      : this.service.create(this.createEntityFromEditor());
+      : this.service.create(this.editor.entity);
 
     promise.then(() => {
       this.getItems();
