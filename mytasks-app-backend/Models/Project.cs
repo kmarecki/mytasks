@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace mytasks.Models {
@@ -12,5 +13,7 @@ namespace mytasks.Models {
         public string Description { get; set; }
 
         public DateTime Created { get; set; }
+
+        public List<Task> Posts { get; set;}
     }
 }

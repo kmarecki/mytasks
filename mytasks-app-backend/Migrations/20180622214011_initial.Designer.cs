@@ -9,8 +9,8 @@ using mytasks.Models;
 namespace mytasks.Migrations
 {
     [DbContext(typeof(MyTasksDbContext))]
-    [Migration("20180604200115_add TaskState")]
-    partial class addTaskState
+    [Migration("20180622214011_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,13 +49,25 @@ namespace mytasks.Migrations
 
                     b.Property<decimal>("PlannedHours");
 
+                    b.Property<int>("ProjectId");
+
                     b.Property<int>("State");
 
                     b.Property<string>("TaskName");
 
                     b.HasKey("TaskId");
 
+                    b.HasIndex("ProjectId");
+
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("mytasks.Models.Task", b =>
+                {
+                    b.HasOne("mytasks.Models.Project", "Project")
+                        .WithMany("Posts")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
