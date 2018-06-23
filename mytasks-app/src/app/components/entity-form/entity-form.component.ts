@@ -26,10 +26,10 @@ import { ListItemDirective } from './list-item.directive';
 import { EditFormComponent } from './edit-form.component';
 import { ListItemComponent } from './list-item.component';
 import { MessageBoxComponent } from '../message-box/message-box.component';
-import { ListHeaderDirective } from './list-header.directive';
 import { SortDirection, ListColumnModel } from './list-header/list.header.model';
 
-export abstract class EntityFormComponent<TEntity, TService extends RestService<TEntity>> implements OnInit, AfterViewInit {
+export abstract class EntityFormComponent<TEntity, TService extends RestService<TEntity>>
+  implements OnInit, AfterViewInit {
   items: TEntity[];
   errorMessage: string;
   editor: EditFormComponent<TEntity> = { entity: undefined };
@@ -61,7 +61,7 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
   protected abstract getTitle(): string;
 
   protected getAll(): Observable<any> {
-    return this,this.service.getAll();
+    return this, this.service.getAll();
   }
 
   ngOnInit(): void {
@@ -99,8 +99,10 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
   }
 
   edit(entity: TEntity): void {
-    this.editor.entity = _.clone(entity);
-    this.onFocus.emit(true);
+    this.service.get(this.getId(entity)).then((entity) => {
+      this.editor.entity = <TEntity>entity;
+      this.onFocus.emit(true);
+    });
   }
 
   delete(entity: TEntity): void {
@@ -158,7 +160,11 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
     if (this.lastSortEvent) {
       const event = this.lastSortEvent;
       if (event.direction != SortDirection.None) {
-        this.items = _.orderBy(this.items, [event.column], [event.direction === SortDirection.Ascending ? 'asc' : 'desc']);
+        this.items = _.orderBy(
+          this.items,
+          [event.column],
+          [event.direction === SortDirection.Ascending ? 'asc' : 'desc']
+        );
       }
     }
   }

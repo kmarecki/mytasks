@@ -1,4 +1,3 @@
-import { ListHeaderDirective } from './entity-form/list-header.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +35,7 @@ import { ListHeaderComponent } from './entity-form/list-header/list-header.compo
     RouterModule,
     DirectivesModule
   ],
-  declarations: [EditFormDirective, ListHeaderDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent,
+  declarations: [EditFormDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent,
     TasksComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent, ListHeaderComponent
   ],
   entryComponents: [ProjectsEditComponent, ProjectItemComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent ]
