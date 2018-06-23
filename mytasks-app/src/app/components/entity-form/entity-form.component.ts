@@ -29,7 +29,7 @@ import { MessageBoxComponent } from '../message-box/message-box.component';
 import { ListHeaderDirective } from './list-header.directive';
 import { SortDirection, ListColumnModel } from './list-header/list.header.model';
 
-export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewInit {
+export abstract class EntityFormComponent<TEntity, TService extends RestService<TEntity>> implements OnInit, AfterViewInit {
   items: TEntity[];
   errorMessage: string;
   editor: EditFormComponent<TEntity> = { entity: undefined };
@@ -43,9 +43,9 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   @ViewChildren(ListItemDirective) listItem: QueryList<ListItemDirective>;
 
   constructor(
-    private service: RestService<TEntity>,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private modalService: BsModalService
+    protected service: TService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected modalService: BsModalService
   ) {}
 
   protected abstract getEditFormComponent(): Type<{}>;
@@ -59,6 +59,10 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   protected abstract getColumns(): ListColumnModel[];
 
   protected abstract getTitle(): string;
+
+  protected getAll(): Observable<any> {
+    return this,this.service.getAll();
+  }
 
   ngOnInit(): void {
     this.getItems();
@@ -83,7 +87,7 @@ export abstract class EntityFormComponent<TEntity> implements OnInit, AfterViewI
   }
 
   getItems(): void {
-    this.service.getAll().subscribe((items) => {
+    this.getAll().subscribe((items) => {
       this.items = items;
       this.sortItems();
     }, (error) => (this.errorMessage = error));

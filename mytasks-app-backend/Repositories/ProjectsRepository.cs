@@ -16,15 +16,15 @@ namespace mytasks.Repositories {
             _context.Add(entity);
         }
 
-        public override Project Find(int id) {
+        public override Project GetById(int id) {
             return _context.Projects.FirstOrDefault(p => p.ProjectId == id);
         }
 
-        public override Project Find(Project entity) {
-            return Find(entity.ProjectId);
+        public override Project Get(Project entity) {
+            return GetById(entity.ProjectId);
         }
 
-        public override IEnumerable<Project> FindAll() {
+        public override IEnumerable<Project> GetAll() {
             return _context.Projects;
         }
 

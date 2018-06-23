@@ -18,7 +18,7 @@ import { ListColumnModel } from '../entity-form/list-header/list.header.model';
   styleUrls: ['./tasks.component.css'],
   providers: [TasksService]
 })
-export class TasksComponent extends EntityFormComponent<Task>  {
+export class TasksComponent extends EntityFormComponent<Task, TasksService>  {
 
   protected getTitle(): string {
     return 'Tasks';
@@ -26,8 +26,9 @@ export class TasksComponent extends EntityFormComponent<Task>  {
 
   protected getColumns(): ListColumnModel[] {
     return [
-      new ListColumnModel("taskName", "Name", 4),
-      new ListColumnModel("taskState", "State", 3),
+      new ListColumnModel("projectName", "Project", 2),
+      new ListColumnModel("taskName", "Name", 3),
+      new ListColumnModel("taskState", "State", 2),
       new ListColumnModel("created", "Created", 3),
       new ListColumnModel("plannedHours", "Planned", 1),
       new ListColumnModel("actualHours", "Actual", 1),
@@ -48,6 +49,10 @@ export class TasksComponent extends EntityFormComponent<Task>  {
 
   protected getId(entity: Task): number {
     return entity.taskId;
+  }
+
+  protected getAll() {
+    return this.service.getAllFromView();
   }
 
   constructor(

@@ -8,18 +8,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mytasks.Controllers.Api {
     [Route("api/[controller]")]
-    public abstract class ApiController<TContext, TEntity> : Controller
-        where TContext : DbContext {
+    public abstract class ApiController<TContext, TRepository, TEntity> : Controller
+        where TContext : DbContext
+        where TRepository: IRepository<TContext, TEntity> {
 
-        private readonly IRepository<TContext, TEntity> _repo;
+        protected readonly TRepository _repo;
 
-        public ApiController(IRepository<TContext, TEntity> repo) {
+        public ApiController(TRepository repo) {
             this._repo = repo;
         }
 
         [HttpGet]
         public IActionResult Index() {
-            var entities = _repo.FindAll();
+            var entities = _repo.GetAll();
             var result = new {
                 Data = entities
             };
@@ -28,7 +29,7 @@ namespace mytasks.Controllers.Api {
 
         [HttpGet("{id}")]
         public IActionResult Get(int id) {
-            var entity = _repo.Find(id);
+            var entity = _repo.GetById(id);
             return GetResult(entity);
         }
 
@@ -46,7 +47,7 @@ namespace mytasks.Controllers.Api {
         public IActionResult Post([FromBody]TEntity entity) {
             _repo.Add(entity);
             _repo.SaveChanges();
-            TEntity saved = _repo.Find(entity);
+            TEntity saved = _repo.Get(entity);
             return GetResult(saved);
         }
 
@@ -54,13 +55,13 @@ namespace mytasks.Controllers.Api {
         public IActionResult Put(int id, [FromBody]TEntity entity) {
             _repo.Update(entity);
             _repo.SaveChanges();
-            TEntity saved = _repo.Find(entity);
+            TEntity saved = _repo.Get(entity);
             return GetResult(saved);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id) {
-            var entity = _repo.Find(id);
+            var entity = _repo.GetById(id);
             if (entity != null) {
                 _repo.Remove(entity);
                 _repo.SaveChanges();

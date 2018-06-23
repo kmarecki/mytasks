@@ -17,7 +17,7 @@ import { EntityFormComponent } from '../entity-form/entity-form.component';
   styleUrls: ['./projects.component.css'],
   providers: [ProjectsService]
 })
-export class ProjectsComponent extends EntityFormComponent<Project>  {
+export class ProjectsComponent extends EntityFormComponent<Project, ProjectsService>  {
   protected getTitle(): string {
     return 'Projects';
   }

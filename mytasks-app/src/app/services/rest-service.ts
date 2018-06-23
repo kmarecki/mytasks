@@ -12,12 +12,16 @@ export abstract class RestService<TEntity> {
 
     private readonly headers = new Headers({ 'Content-Type': 'application/json' })
 
-    constructor(private http: Http) { }
+    constructor(protected http: Http) { }
 
     protected abstract getBaseUrl(): string;
 
+    protected getRootUrl() {
+        return 'http://localhost:5000';
+    }
+
     private getRestApiUrl(): string {
-        return `http://localhost:5000/${this.getBaseUrl()}`;
+        return `${this.getRootUrl()}/${this.getBaseUrl()}`;
     }
 
     getAll(): Observable<TEntity[]> {
@@ -58,11 +62,11 @@ export abstract class RestService<TEntity> {
             .then(() => null)
             .catch(this.handleError);
     }
-    private extractData(res: Response) {
+    protected extractData(res: Response) {
         let body = res.json();
         return body.data || {};
     }
-    private handleError(error: Response | any) {
+    protected handleError(error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';

@@ -5,7 +5,7 @@ export class Task {
 
     taskName: string;
 
-    taskState: TaskState;
+    state: TaskState;
 
     created: Date;
 
@@ -18,4 +18,20 @@ export class Task {
     actualHours: number;
 
     projectId: number;
+}
+
+export interface TaskView {
+    taskId: number;
+
+    taskName: string;
+
+    state: TaskState;
+
+    created: Date;
+
+    plannedHours: number;
+
+    actualHours: number;
+
+    projectName: number;
 }

@@ -9,11 +9,11 @@ namespace mytasks.Repositories {
     public interface IRepository<TContext, TEntity>  {
          void SaveChanges();
 
-       TEntity Find(int id);
+       TEntity GetById(int id);
 
-        TEntity Find(TEntity entity);
+        TEntity Get(TEntity entity);
 
-        IEnumerable<TEntity> FindAll();
+        IEnumerable<TEntity> GetAll();
 
         void Add(TEntity entity);
 
@@ -35,11 +35,11 @@ namespace mytasks.Repositories {
             this._context.SaveChanges();
         }
 
-        public abstract TEntity Find(int id);
+        public abstract TEntity GetById(int id);
 
-        public abstract TEntity Find(TEntity entity);
+        public abstract TEntity Get(TEntity entity);
 
-        public abstract IEnumerable<TEntity> FindAll();
+        public abstract IEnumerable<TEntity> GetAll();
 
         public abstract void Add(TEntity entity);
 
