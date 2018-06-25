@@ -18,28 +18,6 @@
 </div>
 <div class="row">
   <div class="col-xs-10">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="col-xs-10">
-            <!-- <ng-template list-header></ng-template> -->
-            <list-header [columns]="getColumns()" (sort)="onSort($event)"></list-header>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items">
-          <td class="col-xs-10">
-            <ng-template list-item [item]=item></ng-template>
-          </td>
-          <td class="col-xs-2">
-            <div class="buttons pull-right">
-              <button type="button" class="btn-xs" (click)="edit(item)">Edit</button>
-              <button class="btn btn-xs btn-default" (click)="delete(item)">Del</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <items-list [columns]="getColumns()" [items]="items" (sort)="onSort($event)" (edit)="onEdit($event)" (delete)="onDelete($event)"></items-list>
   </div>
 </div>

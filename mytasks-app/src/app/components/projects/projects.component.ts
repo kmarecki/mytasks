@@ -1,4 +1,3 @@
-import { ListColumnModel } from './../entity-form/list-header/list.header.model';
 import {
   Component, ComponentFactoryResolver, Type
 } from '@angular/core';
@@ -8,8 +7,8 @@ import { Project } from '../../services/projects/project';
 import { ProjectsService } from '../../services/projects/projects.service';
 
 import { ProjectsEditComponent } from './projects-edit.component';
-import { ProjectItemComponent } from './project-item.component';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
+import { ListColumnModel } from '../entity-form/items-list/items-list.model';
 
 @Component({
   selector: 'app-projects',
@@ -28,10 +27,6 @@ export class ProjectsComponent extends EntityFormComponent<Project, ProjectsServ
 
   protected getEditFormComponent(): Type<{}> {
     return ProjectsEditComponent;
-  }
-
-  protected getListItemComponent(): Type<{}> {
-    return ProjectItemComponent;
   }
 
   protected newEntity(): Project {

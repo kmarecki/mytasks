@@ -1,0 +1,35 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th class="col-xs-10">
+        <div class="row">
+          <div *ngFor="let column of model.columns" [ngClass]="'col-md-' + column.gridWidth">
+            <button type="button" class="btn btn-xs btn-default" (click)="onSort(column.name)">
+              <b>{{column.text}}
+                <i *ngIf="column.sort==SortDirection.Ascending" class="fa fa-lg fa-angle-down" aria-hidden="true"></i>
+                <i *ngIf="column.sort==SortDirection.Descending" class="fa fa-lg fa-angle-up" aria-hidden="true"></i>
+              </b>
+            </button>
+          </div>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <td class="col-xs-10">
+          <div class="row">
+              <div *ngFor="let column of model.columns" [ngClass]="'col-md-' + column.gridWidth">
+                  <span>{{renderItem(column, item)}}</span>
+              </div>
+          </div>
+      </td>
+      <td class="col-xs-2">
+        <div class="buttons pull-right">
+          <button type="button" class="btn-xs" (click)="onEdit(item)">Edit</button>
+          <button class="btn btn-xs btn-default" (click)="onDelete(item)">Del</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -11,20 +11,18 @@ import { AppComponent } from './app/app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { EditFormDirective } from './entity-form/edit-form.directive';
-import { ListItemDirective } from './entity-form/list-item.directive';
 import { EntityFormComponent } from './entity-form/entity-form.component';
 
 import { RedDirective } from '../directives/red/red.directive';
 
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectsEditComponent } from './projects/projects-edit.component';
-import { ProjectItemComponent } from './projects/project-item.component';
 
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskEditComponent } from './tasks/task-edit.component';
 import { TaskItemComponent } from './tasks/task-item.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
-import { ListHeaderComponent } from './entity-form/list-header/list-header.component';
+import { ItemsListComponent } from './entity-form/items-list/items-list.component';
 
 
 
@@ -35,9 +33,9 @@ import { ListHeaderComponent } from './entity-form/list-header/list-header.compo
     RouterModule,
     DirectivesModule
   ],
-  declarations: [EditFormDirective, ListItemDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent, ProjectItemComponent,
-    TasksComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent, ListHeaderComponent
+  declarations: [EditFormDirective, ProjectsEditComponent, SettingsComponent, ProjectsComponent, NavmenuComponent, AppComponent, DashboardComponent,
+    TasksComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent, ItemsListComponent
   ],
-  entryComponents: [ProjectsEditComponent, ProjectItemComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent ]
+  entryComponents: [ProjectsEditComponent, TaskEditComponent, TaskItemComponent, MessageBoxComponent ]
 })
 export class ComponentsModule { }

@@ -1,4 +1,3 @@
-import { ListHeaderComponent, SortEvent } from './list-header/list-header.component';
 import * as _ from 'lodash';
 import {
   Component,
@@ -21,12 +20,11 @@ import { Observable } from 'rxjs/Observable';
 
 import { RestService } from '../../services/rest-service';
 import { EditFormDirective } from './edit-form.directive';
-import { ListItemDirective } from './list-item.directive';
 
 import { EditFormComponent } from './edit-form.component';
-import { ListItemComponent } from './list-item.component';
 import { MessageBoxComponent } from '../message-box/message-box.component';
-import { SortDirection, ListColumnModel } from './list-header/list.header.model';
+import { SortEvent, EditEvent, DeleteEvent } from './items-list/items-list.component';
+import { ListColumnModel, SortDirection } from './items-list/items-list.model';
 
 export abstract class EntityFormComponent<TEntity, TService extends RestService<TEntity>>
   implements OnInit, AfterViewInit {
@@ -40,7 +38,6 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
   onFocus = new EventEmitter<boolean>();
 
   @ViewChild(EditFormDirective) editForm: EditFormDirective;
-  @ViewChildren(ListItemDirective) listItem: QueryList<ListItemDirective>;
 
   constructor(
     protected service: TService,
@@ -49,8 +46,6 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
   ) {}
 
   protected abstract getEditFormComponent(): Type<{}>;
-
-  protected abstract getListItemComponent(): Type<{}>;
 
   protected abstract newEntity(): TEntity;
 
@@ -79,11 +74,6 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
       );
     });
 
-    this.listItem.changes.subscribe(() =>
-      setTimeout(() => {
-        this.refresh();
-      })
-    );
   }
 
   getItems(): void {
@@ -136,19 +126,7 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
   }
 
   refresh(): void {
-    const itemComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      this.getListItemComponent()
-    );
-    const itemRefs = this.listItem.toArray();
-    for (let i = 0; i < itemRefs.length; i++) {
-      const itemRef = itemRefs[i].viewContainerRef;
-      itemRef.clear();
-      const itemComponent = <ComponentRef<ListItemComponent<TEntity>>>(
-        itemRef.createComponent(itemComponentFactory)
-      );
-      itemComponent.changeDetectorRef.detectChanges();
-      itemComponent.instance.item = itemRefs[i].item;
-    }
+    this.getItems();
   }
 
   private onSort(event: SortEvent): void {
@@ -167,5 +145,13 @@ export abstract class EntityFormComponent<TEntity, TService extends RestService<
         );
       }
     }
+  }
+
+  private onEdit(event: EditEvent): void {
+    this.edit(event.item);
+  }
+
+  private onDelete(event: DeleteEvent): void {
+    this.delete(event.item);
   }
 }
